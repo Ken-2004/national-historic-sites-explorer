@@ -2,6 +2,13 @@
 
 A web application for discovering Canadian national historic sites, exploring their history and location, and saving a personal collection of favourites. This repository contains the Next.js frontend, which connects to a separate custom Sites REST API for historic-site data and user accounts.
 
+## Full-stack project
+
+National Historic Sites Explorer is one full-stack portfolio project maintained in two repositories:
+
+- **Frontend:** Next.js / React — this repository.
+- **Backend/API:** Node.js / Express / MongoDB — [Sites API](https://github.com/Ken-2004/sites-api).
+
 ## Key features
 
 - Search by site name with optional description, year, town or city, and province or territory filters.
@@ -30,7 +37,7 @@ The search form writes non-empty filters to the `/sites` URL query. The results 
 
 ## Custom Sites REST API
 
-The backend is a separate service and is not included in this repository. The frontend makes requests to the base URL configured in `NEXT_PUBLIC_API_URL` and expects these endpoints:
+The backend is a separate service in the [Sites API repository](https://github.com/Ken-2004/sites-api). `NEXT_PUBLIC_API_URL` includes the `/api` prefix (locally, `http://localhost:8080/api`). The frontend appends the endpoint paths below to that base URL; for example, `/sites` becomes `http://localhost:8080/api/sites`:
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
@@ -85,10 +92,10 @@ Prerequisites: Node.js meeting the installed Next.js requirement (`>=20.9.0`), n
 3. Set the API base URL in `.env.local`:
 
    ```dotenv
-   NEXT_PUBLIC_API_URL=http://localhost:8080
+   NEXT_PUBLIC_API_URL=http://localhost:8080/api
    ```
 
-   This is a local example. Use the actual base URL of your Sites API, without a trailing slash. It must be reachable by both the browser and the Next.js server because requests run in both environments.
+   This is a local example. Use the actual base URL of your Sites API, including the `/api` prefix and without a trailing slash. It must be reachable by both the browser and the Next.js server because requests run in both environments.
 
 4. Start the frontend:
 
@@ -100,7 +107,7 @@ Prerequisites: Node.js meeting the installed Next.js requirement (`>=20.9.0`), n
 
 ### Environment configuration
 
-`NEXT_PUBLIC_API_URL` is the application's API base URL. It is public configuration included in the browser bundle, so it must not contain credentials or secrets. Restart the development server after changing it. Set it before a production build and rebuild when changing the browser-facing API URL.
+`NEXT_PUBLIC_API_URL` is the application's API base URL, including the `/api` prefix. It is public configuration included in the browser bundle, so it must not contain credentials or secrets. Restart the development server after changing it. Set it before a production build and rebuild when changing the browser-facing API URL.
 
 Local environment files are ignored by Git; `.env.example` is tracked as the configuration template. Backend database credentials and token-signing secrets belong in the separate API service.
 
